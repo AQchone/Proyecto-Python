@@ -3,7 +3,6 @@ from tkinter.messagebox import showerror
 from tkinter.messagebox import showinfo
 from tkinter import ttk
 
-
 import tabla
 import conexion
 import operaciones
@@ -89,7 +88,6 @@ boton_borrar.grid(row=8, column=0, sticky="w", padx=10, pady=10)
 
 
 tabla.crear_tabla()
-
 operaciones.actualizar_treeview(tree)
 
 root.mainloop()
