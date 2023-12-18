@@ -1,7 +1,6 @@
 import re
 import sqlite3
 from tkinter.messagebox import showerror, showinfo
-
 import conexion
 
 
