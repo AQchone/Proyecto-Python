@@ -1,11 +1,23 @@
 import tkinter as tk
-from tkinter.messagebox import showerror
-from tkinter.messagebox import showinfo
 from tkinter import ttk
-import tabla
-import operaciones
+from tabla import creaTabla
+from operaciones import (
+    AgregarProducto,
+    DarResultado,
+    EliminarProducto,
+)
 
 root = tk.Tk()
+agregar_producto = AgregarProducto()
+dar_resultado = DarResultado()
+eliminar_producto = EliminarProducto()
+tabla = creaTabla()
+
+
+def actualizar_treeview():
+    agregar_producto.actualizar_treeview(tree)
+
+
 root.configure(background="grey")
 root.grid_rowconfigure(0, weight=1)
 root.grid_columnconfigure(0, weight=1)
@@ -72,20 +84,22 @@ root.grid_columnconfigure(4, weight=1)
 boton_alta = tk.Button(
     root,
     text="Agregar",
-    command=lambda: operaciones.alta(
+    command=lambda: agregar_producto.alta(
         a_val.get(), b_val.get(), c_val.get(), d_val.get(), tree
     ),
 )
 boton_alta.grid(row=6, column=0, sticky="w", padx=10, pady=10)
-boton_consulta = tk.Button(
-    root, text="Sumar Total", command=lambda: operaciones.consultar()
-)
+
+boton_consulta = tk.Button(root, text="Sumar Total", command=dar_resultado.consultar)
 boton_consulta.grid(row=7, column=0, sticky="w", padx=10, pady=10)
-boton_borrar = tk.Button(root, text="Borrar", command=lambda: operaciones.borrar(tree))
+
+boton_borrar = tk.Button(
+    root, text="Borrar", command=lambda: eliminar_producto.borrar(tree)
+)
 boton_borrar.grid(row=8, column=0, sticky="w", padx=10, pady=10)
 
+actualizar_treeview()
 
-tabla.crear_tabla()
-operaciones.actualizar_treeview(tree)
+tabla = creaTabla()
 
 root.mainloop()

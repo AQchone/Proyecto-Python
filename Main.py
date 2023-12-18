@@ -1,6 +1,7 @@
-import tabla
+from tabla import creaTabla
 import operaciones
 import vista
 
-tabla.crear_tabla()
-operaciones.actualizar_treeview(vista.tree)
+vista
+operaciones
+tabla = creaTabla()
