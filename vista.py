@@ -51,7 +51,7 @@ b_val = tk.DoubleVar()
 c_val = tk.DoubleVar()
 d_val = tk.DoubleVar()
 w_ancho = 20
-
+creaTabla()
 entrada1 = tk.Entry(root, textvariable=a_val, width=w_ancho)
 entrada1.grid(row=1, column=1, sticky="ew")
 entrada2 = tk.Entry(root, textvariable=b_val, width=w_ancho)
