@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tabla import creaTabla
-from operaciones import AgregarProducto, DarResultado, EliminarProducto
+from controlador import AgregarProducto, DarResultado, EliminarProducto
 
 
 def actualizar_treeview():

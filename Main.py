@@ -1,7 +1,7 @@
 from tabla import creaTabla
-import operaciones
+import controlador
 import vista
 
 vista
-operaciones
+controlador
 tabla = creaTabla()
