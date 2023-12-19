@@ -5,9 +5,12 @@ import conexion
 
 
 class AgregarProducto:
+    def __init__(self):
+        self.default_patron = "^[A-Za-záéíóú]*$"
+
     def alta(self, producto, cantidad, precio_unitario, descuento, tree):
         cadena = producto
-        patron = "^[A-Za-záéíóú]*$"
+        patron = self.default_patron
         if re.match(patron, cadena):
             try:
                 con = conexion.conexion()
@@ -40,15 +43,19 @@ class AgregarProducto:
 
 
 class DarResultado:
+    def __init__(self):
+        self.resultado = 0
+
     def consultar(self):
         try:
             con = conexion.conexion()
             cursor = con.cursor()
             sql = "SELECT SUM(precio_total) FROM productos"
             cursor.execute(sql)
-            result = cursor.fetchone()[0]
+            self.resultado = cursor.fetchone()[0]
             showinfo(
-                "Suma de Precios", f"El resultado de la suma de precios es: ${result}"
+                "Suma de Precios",
+                f"El resultado de la suma de precios es: ${self.resultado}",
             )
         except sqlite3.Error as e:
             showerror("Error", f"Error al consultar los precios: {e}")

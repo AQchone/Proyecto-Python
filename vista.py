@@ -1,32 +1,32 @@
 import tkinter as tk
 from tkinter import ttk
 from tabla import creaTabla
-from operaciones import (
-    AgregarProducto,
-    DarResultado,
-    EliminarProducto,
-)
-
-root = tk.Tk()
-agregar_producto = AgregarProducto()
-dar_resultado = DarResultado()
-eliminar_producto = EliminarProducto()
-tabla = creaTabla()
+from operaciones import AgregarProducto, DarResultado, EliminarProducto
 
 
 def actualizar_treeview():
     agregar_producto.actualizar_treeview(tree)
 
 
+def cambiar_color():
+    color_actual = root.cget("background")
+    nuevo_color = "black" if color_actual == "grey" else "grey"
+    root.configure(background=nuevo_color)
+    bg_color = "white" if nuevo_color == "grey" else "black"
+    fg_color = "black" if nuevo_color == "grey" else "white"
+    style.configure(
+        "Treeview", background=bg_color, fieldbackground=bg_color, foreground=fg_color
+    )
+
+
+root = tk.Tk()
 root.configure(background="grey")
-root.grid_rowconfigure(0, weight=1)
-root.grid_columnconfigure(0, weight=1)
+root.title("Proyecto PYTHON")
+
 style = ttk.Style(root)
 style.theme_use("clam")
-style.configure(
-    "Treeview", background="black", fieldbackground="black", foreground="white"
-)
-root.title("Proyecto PYTHON")
+
+# Creación de widgets
 titulo = tk.Label(
     root,
     text="Ingrese sus datos",
@@ -35,7 +35,9 @@ titulo = tk.Label(
     height=1,
     width=60,
 )
+
 titulo.grid(row=0, column=0, columnspan=2, padx=10, pady=10, sticky="nsew")
+
 producto = tk.Label(root, text="Producto")
 producto.grid(row=1, column=0, sticky="w")
 cantidad = tk.Label(root, text="Cantidad")
@@ -44,11 +46,13 @@ precio_unitario = tk.Label(root, text="Precio Unitario")
 precio_unitario.grid(row=3, column=0, sticky="w")
 descuento = tk.Label(root, text="Descuento (%)")
 descuento.grid(row=4, column=0, sticky="w")
+
 a_val = tk.StringVar()
 b_val = tk.DoubleVar()
 c_val = tk.DoubleVar()
 d_val = tk.DoubleVar()
 w_ancho = 20
+
 entrada1 = tk.Entry(root, textvariable=a_val, width=w_ancho)
 entrada1.grid(row=1, column=1, sticky="ew")
 entrada2 = tk.Entry(root, textvariable=b_val, width=w_ancho)
@@ -57,30 +61,19 @@ entrada3 = tk.Entry(root, textvariable=c_val, width=w_ancho)
 entrada3.grid(row=3, column=1, sticky="ew")
 entrada4 = tk.Entry(root, textvariable=d_val, width=w_ancho)
 entrada4.grid(row=4, column=1, sticky="ew")
-tree = ttk.Treeview(root)
-tree["columns"] = ("col1", "col2", "col3", "col4")
-tree.column("#0", width=90, minwidth=50, anchor="w")
-tree.column("col1", width=200, minwidth=80)
-tree.column("col2", width=200, minwidth=80)
-tree.column("col3", width=200, minwidth=80)
-tree.column("col4", width=200, minwidth=80)
-tree.heading("#0", text="ID")
-tree.heading("col1", text="Producto")
-tree.heading("col2", text="Cantidad")
-tree.heading("col3", text="Precio Unitario")
-tree.heading("col4", text="Precio Total")
-scrollbar = tk.Scrollbar(root, orient="vertical", command=tree.yview)
-tree.configure(yscrollcommand=scrollbar.set)
-tree.grid(row=0, column=2, columnspan=2, rowspan=9, padx=10, pady=10, sticky="nsew")
-scrollbar.grid(row=0, column=4, rowspan=9, sticky="ns")
-scrollbar.config(width=20)
-root.grid_rowconfigure(0, weight=1)
-root.grid_rowconfigure(1, weight=1)
-root.grid_columnconfigure(0, weight=1)
-root.grid_columnconfigure(1, weight=1)
-root.grid_columnconfigure(2, weight=1)
-root.grid_columnconfigure(3, weight=1)
-root.grid_columnconfigure(4, weight=1)
+# ... Creación de widgets ...
+
+dar_resultado = DarResultado()  # Creación de la instancia de DarResultado
+
+# Configuración del layout utilizando bucles para evitar repetición de código
+for i in range(5):
+    root.grid_columnconfigure(i, weight=1)
+
+for i in range(9):
+    root.grid_rowconfigure(i, weight=1)
+
+# ... Creación de widgets ...
+
 boton_alta = tk.Button(
     root,
     text="Agregar",
@@ -98,8 +91,35 @@ boton_borrar = tk.Button(
 )
 boton_borrar.grid(row=8, column=0, sticky="w", padx=10, pady=10)
 
-actualizar_treeview()
+boton_cambiar_color = tk.Button(root, text="Cambiar Color", command=cambiar_color)
+boton_cambiar_color.grid(row=5, column=0, sticky="w", padx=10, pady=10)
 
-tabla = creaTabla()
+# Creación del Treeview
+tree = ttk.Treeview(root, columns=("col1", "col2", "col3", "col4"))
+tree.column("#0", width=90, minwidth=50, anchor="w")
+tree.column("col1", width=200, minwidth=80)
+tree.column("col2", width=200, minwidth=80)
+tree.column("col3", width=200, minwidth=80)
+tree.column("col4", width=200, minwidth=80)
+
+tree.heading("#0", text="ID")
+tree.heading("col1", text="Producto")
+tree.heading("col2", text="Cantidad")
+tree.heading("col3", text="Precio Unitario")
+tree.heading("col4", text="Precio Total")
+
+tree.grid(row=5, column=0, columnspan=2, padx=10, pady=10, sticky="nsew")
+
+# Configuración de scrollbar y layout
+tree.grid(row=0, column=2, columnspan=2, rowspan=9, padx=10, pady=10, sticky="nsew")
+scrollbar = tk.Scrollbar(root, orient="vertical", command=tree.yview)
+scrollbar.grid(row=0, column=4, rowspan=9, sticky="ns")
+tree.configure(yscrollcommand=scrollbar.set)
+scrollbar.config(width=20)
+
+# Lógica principal
+agregar_producto = AgregarProducto()
+eliminar_producto = EliminarProducto()
+actualizar_treeview()
 
 root.mainloop()
