@@ -26,7 +26,6 @@ root.title("Proyecto PYTHON")
 style = ttk.Style(root)
 style.theme_use("clam")
 
-# Creación de widgets
 titulo = tk.Label(
     root,
     text="Ingrese sus datos",
@@ -61,18 +60,17 @@ entrada3 = tk.Entry(root, textvariable=c_val, width=w_ancho)
 entrada3.grid(row=3, column=1, sticky="ew")
 entrada4 = tk.Entry(root, textvariable=d_val, width=w_ancho)
 entrada4.grid(row=4, column=1, sticky="ew")
-# ... Creación de widgets ...
 
-dar_resultado = DarResultado()  # Creación de la instancia de DarResultado
 
-# Configuración del layout utilizando bucles para evitar repetición de código
+dar_resultado = DarResultado()
+
+
 for i in range(5):
     root.grid_columnconfigure(i, weight=1)
 
 for i in range(9):
     root.grid_rowconfigure(i, weight=1)
 
-# ... Creación de widgets ...
 
 boton_alta = tk.Button(
     root,
@@ -94,7 +92,6 @@ boton_borrar.grid(row=8, column=0, sticky="w", padx=10, pady=10)
 boton_cambiar_color = tk.Button(root, text="Cambiar Color", command=cambiar_color)
 boton_cambiar_color.grid(row=5, column=0, sticky="w", padx=10, pady=10)
 
-# Creación del Treeview
 tree = ttk.Treeview(root, columns=("col1", "col2", "col3", "col4"))
 tree.column("#0", width=90, minwidth=50, anchor="w")
 tree.column("col1", width=200, minwidth=80)
@@ -110,14 +107,12 @@ tree.heading("col4", text="Precio Total")
 
 tree.grid(row=5, column=0, columnspan=2, padx=10, pady=10, sticky="nsew")
 
-# Configuración de scrollbar y layout
 tree.grid(row=0, column=2, columnspan=2, rowspan=9, padx=10, pady=10, sticky="nsew")
 scrollbar = tk.Scrollbar(root, orient="vertical", command=tree.yview)
 scrollbar.grid(row=0, column=4, rowspan=9, sticky="ns")
 tree.configure(yscrollcommand=scrollbar.set)
 scrollbar.config(width=20)
 
-# Lógica principal
 agregar_producto = AgregarProducto()
 eliminar_producto = EliminarProducto()
 actualizar_treeview()
