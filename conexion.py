@@ -7,4 +7,13 @@ def conexion():
         con = sqlite3.connect("mibase.db")
         return con
     except sqlite3.Error as e:
-        showerror("Error", f"Error al conectar a la base de datos: {e}")
+        mensaje_error = f"Error al conectar a la base de datos: {e}"
+        showerror("Error de conexión", mensaje_error)
+        return None
+
+
+mi_conexion = conexion()
+if mi_conexion:
+    print("Conexión exitosa")
+else:
+    print("No se pudo establecer la conexión")
