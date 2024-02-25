@@ -1,0 +1,5 @@
+py-utn-agus
+https://pgxfvcnlpkzvczywggpp.supabase.co
+
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBneGZ2Y25scGt6dmN6eXdnZ3BwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDg4MDk2MTEsImV4cCI6MjAyNDM4NTYxMX0.mPEdQgftIAqpr_MxdW4Ek4j3P_c7mbJhwVtI8WN_bfs
