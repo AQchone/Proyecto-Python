@@ -14,7 +14,7 @@ class LoginRegistroVentana:
     def __init__(self, root):
         self.root = root
         self.root.title("Inicio de Sesión / Registro")
-
+        self.root.geometry("300x160")
         self._usuario = None
         self._contrasena = None
 
