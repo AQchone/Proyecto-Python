@@ -14,7 +14,7 @@ class LoginRegistroVentana:
     def __init__(self, root):
         self.root = root
         self.root.title("Inicio de Sesión / Registro")
-        self.root.geometry("300x160")
+        self.root.geometry("200x160")
         self._usuario = None
         self._contrasena = None
 
@@ -41,6 +41,8 @@ class LoginRegistroVentana:
         self.conexion_usuarios = sqlite3.connect("usuarios.db")
 
         self.crear_tabla_usuarios()
+
+        self.root.protocol("WM_DELETE_WINDOW", self.cerrar_ventana)
 
     @property
     def usuario(self):
@@ -119,6 +121,12 @@ class LoginRegistroVentana:
             self.conexion_usuarios.commit()
         except sqlite3.Error as e:
             messagebox.showerror("Error", f"No se pudo crear la tabla de usuarios: {e}")
+
+    def cerrar_ventana(self):
+        if messagebox.askyesno("Salir", "¿Estás seguro que quieres salir?"):
+            self.root.destroy()
+        else:
+            return
 
 
 if __name__ == "__main__":

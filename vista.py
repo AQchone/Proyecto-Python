@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from tabla import creaTabla
 from controlador import AgregarProducto, DarResultado, EliminarProducto
 
@@ -19,6 +19,13 @@ def cambiar_color():
     )
 
 
+def cerrar_ventana():
+    if messagebox.askyesno("Salir", "¿Estás seguro que quieres salir?"):
+        root.destroy()
+    else:
+        return
+
+
 def inicializar_vista():
     global root, style, titulo, producto, cantidad, precio_unitario, descuento
     global a_val, b_val, c_val, d_val, w_ancho
@@ -30,16 +37,13 @@ def inicializar_vista():
     root.configure(background="grey")
     root.title("Proyecto PYTHON")
 
+    root.protocol("WM_DELETE_WINDOW", cerrar_ventana)
+
     style = ttk.Style(root)
     style.theme_use("clam")
 
     titulo = tk.Label(
-        root,
-        text="Ingrese sus datos",
-        bg="blue",
-        fg="thistle1",
-        height=1,
-        width=60,
+        root, text="Ingrese sus datos", bg="blue", fg="thistle1", height=1, width=60
     )
 
     titulo.grid(row=0, column=0, columnspan=2, padx=10, pady=10, sticky="nsew")
