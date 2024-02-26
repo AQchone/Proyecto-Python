@@ -16,7 +16,7 @@ class InicioSesionObservador(Observador):
 
 class RegistroObservador(Observador):
     def actualizar(self, evento, datos):
-        print(f"Se ha registrado un nuevo usuario: {datos}")
+        print(f"Bienvenido {datos}")
 
 
 class Sujeto:
