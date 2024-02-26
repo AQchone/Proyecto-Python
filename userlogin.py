@@ -4,14 +4,45 @@ import sqlite3
 import base
 
 
+class Observador:
+    def actualizar(self, evento, datos):
+        pass
+
+
+class InicioSesionObservador(Observador):
+    def actualizar(self, evento, datos):
+        print(f"Se ha iniciado sesión con el usuario: {datos}")
+
+
+class RegistroObservador(Observador):
+    def actualizar(self, evento, datos):
+        print(f"Se ha registrado un nuevo usuario: {datos}")
+
+
+class Sujeto:
+    def __init__(self):
+        self.observadores = []
+
+    def registrar_observador(self, observador):
+        self.observadores.append(observador)
+
+    def eliminar_observador(self, observador):
+        self.observadores.remove(observador)
+
+    def notificar_observadores(self, evento, datos):
+        for observador in self.observadores:
+            observador.actualizar(evento, datos)
+
+
 def iniciar_logueo():
     root = tk.Tk()
     LoginRegistroVentana(root)
     root.mainloop()
 
 
-class LoginRegistroVentana:
+class LoginRegistroVentana(Sujeto):
     def __init__(self, root):
+        super().__init__()
         self.root = root
         self.root.title("Inicio de Sesión / Registro")
         self.root.geometry("200x160")
@@ -44,6 +75,9 @@ class LoginRegistroVentana:
 
         self.root.protocol("WM_DELETE_WINDOW", self.cerrar_ventana)
 
+        self.registrar_observador(InicioSesionObservador())
+        self.registrar_observador(RegistroObservador())
+
     @property
     def usuario(self):
         return self._usuario
@@ -65,6 +99,7 @@ class LoginRegistroVentana:
         self.contrasena = self.entry_contrasena.get()
 
         if self.verificar_credenciales(self.usuario, self.contrasena):
+            self.notificar_observadores("inicio_sesion", self.usuario)
             self.abrir_ventana_principal()
         else:
             messagebox.showerror("Error", "Credenciales incorrectas")
@@ -82,6 +117,7 @@ class LoginRegistroVentana:
                 )
                 self.conexion_usuarios.commit()
                 messagebox.showinfo("Registro", "Usuario registrado exitosamente")
+                self.notificar_observadores("registro", self.usuario)
                 self.iniciar_aplicacion_principal()
             except sqlite3.Error as e:
                 messagebox.showerror("Error", f"No se pudo registrar el usuario: {e}")

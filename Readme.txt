@@ -4,7 +4,7 @@ Este proyecto es una aplicación que permite a los usuarios registrarse e inicia
 Cómo funciona el proyecto
 
 Inicio de sesión / Registro
-Al iniciar la aplicación, el usuario debe registrarse primero si es un nuevo usuario.
+Al iniciar la aplicación ejecutando el archivo main.py , el usuario debe registrarse primero si es un nuevo usuario.
 Si el usuario ya está registrado, puede iniciar sesión con su nombre de usuario y contraseña.
 Si se ingresan credenciales incorrectas o los campos están vacíos, se mostrará un error indicando que el usuario no está registrado o que los campos están incompletos.
 
