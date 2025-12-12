@@ -1,12 +1,17 @@
 from tabla import creaTabla
-import controlador
 import vista
 
 
 def iniciar_aplicacion():
-    creaTabla()
+    """Inicializa la aplicación principal"""
+    # Crear tablas si no existen
+    tabla = creaTabla()
+    tabla.crear_tabla()
+    tabla.agregar_columna_usuario()
+    tabla.crear_tabla_historial()
+
+    # Iniciar la interfaz gráfica
     vista.inicializar_vista()
-    controlador()
 
 
 if __name__ == "__main__":

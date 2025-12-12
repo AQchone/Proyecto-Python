@@ -1,3 +1,4 @@
 import userlogin
 
-userlogin.iniciar_logueo()
+if __name__ == "__main__":
+    userlogin.iniciar_logueo()
